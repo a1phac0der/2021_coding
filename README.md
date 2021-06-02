@@ -1,2 +1,2 @@
 # dsa-coding-java
-latest clean repo for coding solutions
+Repo for all coding solutions in Java.
