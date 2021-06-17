@@ -9,15 +9,8 @@ public class InsertionSort {
 	public static void sortArray(int[] array){
 		for(int i=0; i<array.length; i++){
 			if(i>0){
-				int j=i;
-					while(j>0 && array[j]<array[j-1])
-					{
-						int temp = array[j];
-						array[j] = array[j-1];
-						array[j-1] = temp;
-						j--;
-					}
-			}
+                sort.InsertionSort.sortFrom(array, i);
+            }
 		}
 	}
 	
