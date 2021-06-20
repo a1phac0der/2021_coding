@@ -84,6 +84,7 @@ public class DijkstraShortestPath {
         for(Edge e: graph.get(source)){
             prev[e.to] = source;
             cost[e.to] = e.cost;
+            e.costFromSource = e.cost;
             pq.add(e);
         }
 
@@ -96,14 +97,14 @@ public class DijkstraShortestPath {
                 continue;
             }
 
-            for (Edge to: graph.get(e.to)){
+            for (Edge node: graph.get(e.to)){
                 //Update the minimum cost of reaching the vertex if the cost of current path is smaller than the previous.
                 //Also update the prev in the current shortest node.
-                double new_cost = cost[to.from] + to.cost;
-                if(new_cost < cost[to.to]){
-                    cost[to.to] = new_cost;
-                    pq.add(new Edge(to.from, to.to, cost[to.to]));
-                    prev[to.to] = to.from;
+                double new_cost = cost[node.from] + node.cost;
+                if(new_cost < cost[node.to]){
+                    cost[node.to] = new_cost;
+                    pq.add(new Edge(node.from, node.to, node.cost, node.costFromSource));
+                    prev[node.to] = node.from;
                 }
             }
 
