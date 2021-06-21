@@ -3,49 +3,56 @@ package leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Given two strings s1(input) and s2(source), return true if s2 contains the permutation of s1.
+ *
+ * In other words, one of s1's permutations is the substring of s2.
+ *
+ *
+ *
+ * Example 1:
+ *
+ * Input: s1 = "ab", s2 = "eidbaooo"
+ * Output: true
+ * Explanation: s2 contains one permutation of s1 ("ba").
+ * Example 2:
+ *
+ * Input: s1 = "ab", s2 = "eidboaoo"
+ * Output: false
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= s1.length, s2.length <= 104
+ * s1 and s2 consist of lowercase English letters.
+ */
+
 public class PermutationInString {
     public boolean checkInclusion(String s1, String s2) {
-        Map<Character, Integer> counts = new HashMap();
-        Map<Character, Integer> lastIndex = new HashMap();
-        for(char c: s1.toCharArray()){
-            counts.put(c, counts.getOrDefault(c,0)+1);
+        if (s1.length() > s2.length()) { return false; }
+        int[] s1map = new int[26];
+        int[] s2map = new int[26];
+        for (int i = 0; i < s1.length(); i++) {
+            s1map[s1.charAt(i) - 'a']++;
+            s2map[s2.charAt(i) - 'a']++;
         }
+        int count = 0;
+        for (int i = 0; i < 26; i++) { if (s1map[i] == s2map[i]) { count++; } }
+        for (int i = 0; i < s2.length() - s1.length(); i++) {
+            int r = s2.charAt(i + s1.length()) - 'a', l = s2.charAt(i) - 'a';
+            if (count == 26) { return true; }
+            if (r != l) {
 
-        for(int i=0; i < s2.length(); i++){
-            if(counts.get(s2.charAt(i)) != null){
-                int index = 0;
-                Map<Character, Integer> tempCounts = new HashMap(counts);
-                while(index < s1.length() && i < s2.length()){
-                    if(counts.get(s2.charAt(i)) == null){
-                        break;
-                    }
+                s2map[r]++;
+                s2map[l]--;
 
-                    if(tempCounts.get(s2.charAt(i)) <= 0){
-                        if(counts.get(s2.charAt(i)) == index){
-                            i++;
-                            continue;
-                        }else{
-                            tempCounts = new HashMap(counts);
-                            index = 0;
-                            i = lastIndex.getOrDefault(s2.charAt(i),0) + 1;
-                            lastIndex.clear();
-                            continue;
-                        }
-                    }
-                    if(lastIndex.get(s2.charAt(i)) == null){
-                        lastIndex.put(s2.charAt(i), i);
-                    }
+                if (s2map[r] == s1map[r]) { count++; }
+                else if (s2map[r] == s1map[r] + 1) { count--; }
 
-                    tempCounts.put(s2.charAt(i), tempCounts.get(s2.charAt(i))-1);
-                    i++;
-                    index++;
-
-                }
-                if(index == s1.length()){
-                    return true;
-                }
+                if (s2map[l] == s1map[l]) { count++; }
+                else if (s2map[l] == s1map[l] - 1) { count--; }
             }
         }
-        return false;
+        return count == 26;
     }
 }
