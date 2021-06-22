@@ -12,6 +12,11 @@ public class Edge implements Comparable<Edge>{
         this.cost = cost;
     }
 
+    public Edge(int from, int to){
+        this.from = from;
+        this.to = to;
+    }
+
     public Edge(int from, int to, Double cost, Double costFromSource){
         this.from = from;
         this.to = to;
