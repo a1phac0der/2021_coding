@@ -53,7 +53,7 @@ public class NearestBlock {
         //initialise..
         for (int i = 0; i < blocks.length; i++) {
             minLeft[i] = new HashMap<>();
-            minRight[i] = new HashMap<>();  
+            minRight[i] = new HashMap<>();
             minDistance[i] = new HashMap<>();
 
             for (String place : blocks[i].keySet()) {

@@ -35,6 +35,7 @@ class HelloWorld{
     System.out.println(Integer.toBinaryString(7));
     System.out.println(bitwiseUtils.getDigit(111, 4));
     System.out.println(new HelloWorld().getClass().getSimpleName());*/
-    System.out.println("sdf\nsadasds".replaceAll("sdasd", " "));
+//    System.out.println((Math.log(41+25)));
+    System.out.println();
   }
 }
